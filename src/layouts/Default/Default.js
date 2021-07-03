@@ -27,6 +27,8 @@ import Home from 'views/Public/Home.js';
 import Cart from 'views/Public/Cart.js';
 import Messages from 'views/Public/Messages.js';
 
+import Footer from 'components/Footer/Footer.js'
+
 //Custom Style
 import useStyles from 'layouts/Default/Style.js'
 
@@ -114,6 +116,7 @@ export default function PrimarySearchAppBar() {
           </div>
         </Toolbar>
       </AppBar>
+      
       <Menu
         anchorEl={mobileMoreAnchorEl}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -173,6 +176,7 @@ export default function PrimarySearchAppBar() {
         <Route path="/messages" component={Messages} />
         <Route exact path="/" component={Home} />
       </Switch>
+      <Footer />
     </Router>
   );
 }
