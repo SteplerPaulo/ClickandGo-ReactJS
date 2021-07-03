@@ -1,10 +1,9 @@
-
 import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
-import Admin from "layouts/admin.js";
-import Default from "layouts/default.js";
+import Admin from "layouts/Admin/Admin.js";
+import Default from "layouts/Default/Default.js";
 
 const hist = createBrowserHistory();
 
