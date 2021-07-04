@@ -1,6 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
+import { React, useState } from 'react';
+import { Router, Switch, Route, Link, useHistory } from "react-router-dom";
 //Material UI Core
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,7 +11,6 @@ import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Divider from '@material-ui/core/Divider';
-
 //Material UI Icons
 import StoreIcon from '@material-ui/icons/Store';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -20,24 +18,25 @@ import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import MoreIcon from '@material-ui/icons/MoreVert';
-
-
-//Admin Views
+// Views
 import Home from 'views/Public/Home.js';
 import Cart from 'views/Public/Cart.js';
 import Messages from 'views/Public/Messages.js';
-
+import Catalog from 'views/Public/Catalog.js';
 import Footer from 'components/Footer/Footer.js'
-
 //Custom Style
 import useStyles from 'layouts/Default/Style.js'
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(props) {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [search, setSearch] = useState('');
+  const history = useHistory();
+
+
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -56,12 +55,21 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleSearch = (event) => {
+    if (event.key === 'Enter') {
+      setSearch(event.target.value);
+      history.push({
+        pathname: `/catalog`,
+        search: `?query=${event.target.value}`
+      })
+    }
+  }
+
   const menuId = 'primary-search-account-menu';
   const mobileMenuId = 'primary-search-account-menu-mobile';
 
-
   return (
-    <Router className={classes.grow}>
+    <Router className={classes.grow} history={history}>
       <CssBaseline />
       <AppBar position="sticky" className={classes.baco}>
         <Toolbar>
@@ -77,11 +85,9 @@ export default function PrimarySearchAppBar() {
             </div>
             <InputBase
               placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
+              classes={{ root: classes.inputRoot, input: classes.inputInput }}
               inputProps={{ 'aria-label': 'search' }}
+              onKeyDown={handleSearch}
             />
           </div>
           <div className={classes.grow} />
@@ -91,7 +97,7 @@ export default function PrimarySearchAppBar() {
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-            <IconButton component={Link} to="/messages" aria-label="show 17 new notifications" color="inherit">
+            <IconButton component={Link} to="/messages" aria-label="show 17 new messages" color="inherit">
               <Badge badgeContent={17} color="secondary">
                 <QuestionAnswerIcon />
               </Badge>
@@ -116,7 +122,7 @@ export default function PrimarySearchAppBar() {
           </div>
         </Toolbar>
       </AppBar>
-      
+
       <Menu
         anchorEl={mobileMoreAnchorEl}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -171,12 +177,19 @@ export default function PrimarySearchAppBar() {
         <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
       </Menu>
 
-      <Switch>
+      <Switch >
         <Route path="/cart" component={Cart} />
         <Route path="/messages" component={Messages} />
-        <Route exact path="/" component={Home} />
+        <Route
+          path='/catalog'
+          render={(props) => (
+            <Catalog {...props} search={search} />
+          )}
+        />
+        <Route exact path='/' component={Home} />
       </Switch>
       <Footer />
     </Router>
   );
 }
+
