@@ -5,11 +5,14 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        backgroundColor: theme.palette.background.default,
         paddingTop: theme.spacing(5),
         paddingBottom: theme.spacing(1),
         paddingLeft: theme.spacing(2),
-        paddingRight: theme.spacing(2)
+        paddingRight: theme.spacing(2),
+        backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+        padding: theme.spacing(3, 2),
+        marginTop: 'auto',
+
     },
     textMuted: {
         fontSize: '0.9rem',
@@ -29,7 +32,7 @@ export default function Footer(props) {
                     </Typography>
                 </Grid>
                 <Grid item lg  >
-                    <Typography align="right"  className={classes.textMuted}>
+                    <Typography align="right" className={classes.textMuted}>
                         Design & Develop by Paulo Biscocho
                     </Typography>
                 </Grid>
