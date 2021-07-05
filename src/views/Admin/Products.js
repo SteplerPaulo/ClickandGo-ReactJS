@@ -8,9 +8,9 @@ import Table from 'components/Pagination/Table.js'
 
 export default function Products() {
     const headCells = [
-        { id: 'id', numeric: false, disablePadding: false, label: 'ID' },
-        { id: 'name', numeric: false, disablePadding: false, label: 'Name' },
-        { id: 'price', numeric: true, disablePadding: false, label: 'Price' }
+        { id: 'id', numeric: false, disablePadding: false,hidden: true, label: 'ID' },
+        { id: 'name', numeric: false, disablePadding: false,hidden: false, label: 'Name' },
+        { id: 'price', numeric: true, disablePadding: false,hidden: false, label: 'Price' }
     ];
     const [items, setItems] = useState([]);
     const [totalItems, setTotalItems] = useState(0);
@@ -26,15 +26,11 @@ export default function Products() {
         setQuery(event.target.value)
     }
 
- 
-
     const handleSearch = (event) => {
         if (event.key === 'Enter' || event.type === 'click') {
             setUrl(baseUrl + `?query=${query}&page=1&size=${size}`);
         }
-
     }
-
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);

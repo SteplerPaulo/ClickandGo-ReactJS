@@ -1,13 +1,14 @@
 import { React } from 'react';
 import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+
 import { NoResult } from 'components/Search/Result.js'
+import EnhancedTableHead from 'components/Pagination/TableHead.js'
 
 import { useStyles } from 'components/Pagination/Style.js';
 
@@ -20,13 +21,7 @@ export default function EnhancedTable(props) {
       <Paper className={classes.paper}>
         <TableContainer>
           <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell align="right">Price</TableCell>
-              </TableRow>
-            </TableHead>
+            <EnhancedTableHead headCells={headCells} classes={classes}/>
             <TableBody>
               {(rows.length) ? rows.map((row, index) => {
                 return (
@@ -35,16 +30,17 @@ export default function EnhancedTable(props) {
                       <TableCell
                         key={key} component="th" scope="row"
                         align={(col.numeric ? 'right' : 'left')}
+                        className={col.hidden ?classes.hide:''}
                       >
 
-                        {row[col.id]}
+                        {row[col.id]} 
                       </TableCell>
                     ))}
                   </TableRow>
                 )
               }) :
                 <TableRow>
-                  <TableCell colspan={3}>
+                  <TableCell colSpan={3}>
                     <NoResult />
                   </TableCell>
                 </TableRow>
