@@ -1,17 +1,18 @@
 import { React, Fragment, useState, useEffect } from 'react'
 import axios from 'axios';
-
 import FloatingButton from 'components/FloatingButton/FloatingButton.js';
 import SearchInput from 'components/Search/Input.js';
 import Table from 'components/Pagination/Table.js'
+import { NoResult } from 'components/Search/Result.js'
 
 
 export default function Products() {
     const headCells = [
-        { id: 'id', numeric: false, disablePadding: false,hidden: true, label: 'ID' },
-        { id: 'name', numeric: false, disablePadding: false,hidden: false, label: 'Name' },
-        { id: 'price', numeric: true, disablePadding: false,hidden: false, label: 'Price' }
+        { id: 'id', numeric: false, disablePadding: false, hidden: true, label: 'ID' },
+        { id: 'name', numeric: false, disablePadding: false, hidden: false, label: 'Name' },
+        { id: 'price', numeric: true, disablePadding: false, hidden: false, label: 'Price' }
     ];
+    const [isLoading, setIsLoading] = useState(false);
     const [items, setItems] = useState([]);
     const [totalItems, setTotalItems] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
@@ -21,7 +22,7 @@ export default function Products() {
     const [baseUrl] = useState(`${process.env.REACT_APP_API_URL}products`)
     const [url, setUrl] = useState(baseUrl + `?size=${size}`);
 
-    
+
     const handleChangeSearch = (event) => {
         setQuery(event.target.value)
     }
@@ -44,12 +45,14 @@ export default function Products() {
     };
 
     useEffect(() => {
+        setIsLoading(true)
         const response = async () => {
             const { data } = await axios(url);
             console.log(data)
             setItems(data.rows);
             setTotalItems(data.totalItems);
-            setTotalPages(data.totalPages)
+            setTotalPages(data.totalPages);
+            setIsLoading(false)
         }
         response();
     }, [url]);
@@ -62,17 +65,20 @@ export default function Products() {
                 handleChangeSearch={handleChangeSearch}
             />
             <FloatingButton />
-            <Table
-                tableName="Products"
-                rows={items}
-                page={page}
-                headCells={headCells}
-                totalItems={totalItems}
-                totalPages={totalPages}
-                handleChangePage={handleChangePage}
-                rowsPerPage={size}
-                handleChangeRowsPerPage={handleChangeRowsPerPage}
-            />
+            
+            {(items.length) ?
+                <Table
+                    tableName="Products"
+                    rows={items}
+                    page={page}
+                    headCells={headCells}
+                    totalItems={totalItems}
+                    totalPages={totalPages}
+                    handleChangePage={handleChangePage}
+                    rowsPerPage={size}
+                    handleChangeRowsPerPage={handleChangeRowsPerPage}
+                /> :''}
+            {(!isLoading && !items.length)?<NoResult />:''}
         </Fragment>
     )
 }
