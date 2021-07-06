@@ -7,7 +7,6 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import { NoResult } from 'components/Search/Result.js'
 import EnhancedTableHead from 'components/Pagination/TableHead.js'
 
 import { useStyles } from 'components/Pagination/Style.js';
@@ -21,29 +20,24 @@ export default function EnhancedTable(props) {
       <Paper className={classes.paper}>
         <TableContainer>
           <Table>
-            <EnhancedTableHead headCells={headCells} classes={classes}/>
+            <EnhancedTableHead headCells={headCells} classes={classes} />
             <TableBody>
-              {(rows.length) ? rows.map((row, index) => {
+              {rows.map((row, index) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.id}  >
                     {headCells.map((col, key) => (
                       <TableCell
                         key={key} component="th" scope="row"
                         align={(col.numeric ? 'right' : 'left')}
-                        className={col.hidden ?classes.hide:''}
+                        className={col.hidden ? classes.hide : ''}
                       >
 
-                        {row[col.id]} 
+                        {row[col.id]}
                       </TableCell>
                     ))}
                   </TableRow>
                 )
-              }) :
-                <TableRow>
-                  <TableCell colSpan={3}>
-                    <NoResult />
-                  </TableCell>
-                </TableRow>
+              })
               }
             </TableBody>
           </Table>
