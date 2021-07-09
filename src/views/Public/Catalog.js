@@ -4,7 +4,7 @@ import axios from 'axios';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
-import ItemList from 'components/Catalog/Items.js'
+import CardItems from 'components/Card/CardItems.js'
 import { LoadMore, NoResult, EndOfResult } from 'components/Search/Result.js'
 
 require('dotenv').config()
@@ -51,9 +51,7 @@ export default function Catalog(props) {
             <Container>
                 <h1>Search result</h1>
                 <Grid container spacing={3}>
-                    {items.map((item, index) => (
-                        <ItemList key={index} item={item} />
-                    ))}
+                    <CardItems  items={items} />
                 </Grid>
                 {(items.length && (totalPages !== page)) ? <LoadMore loadMore={loadMore} /> : ''}
                 {(items.length && (totalPages === page)) ? <EndOfResult /> : ''}
