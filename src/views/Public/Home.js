@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import axios from 'axios';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import ItemList from 'components/Catalog/Items.js'
+import CardItems from 'components/Card/CardItems.js'
 import Carousel from 'components/Carousel/Carousel.js'
 import { LoadMore, NoResult, EndOfResult } from 'components/Search/Result.js'
 
@@ -35,7 +35,7 @@ export default function Home() {
                 <Carousel />
                 <h1>Featured Items</h1>
                 <Grid container spacing={3}>
-                     <ItemList  items={items} />
+                     <CardItems  items={items} />
                 </Grid>
                 {(items.length && (totalPages !== page))? <LoadMore loadMore={loadMore} /> :''}
                 {(items.length && (totalPages === page))? <EndOfResult/>:''}
