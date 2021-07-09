@@ -15,12 +15,12 @@ export default function Catalog(props) {
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
     const [items, setItems] = useState([])
-    const [baseUrl, setBaseUrl] = useState(`${process.env.REACT_APP_API_URL}products?query=${search}`)
-    const [url, setUrl] = useState(`${process.env.REACT_APP_API_URL}products?query=${search}`)
+    const [baseUrl, setBaseUrl] = useState(`${process.env.REACT_APP_API_URL}products?name=${search}`)
+    const [url, setUrl] = useState(`${process.env.REACT_APP_API_URL}products?name=${search}`)
 
     //set default value on search
     useEffect(() => {
-        const url = `${process.env.REACT_APP_API_URL}products?query=${search}`;
+        const url = `${process.env.REACT_APP_API_URL}products?name=${search}`;
         setUrl(url)
         setBaseUrl(url)
         setItems([])
