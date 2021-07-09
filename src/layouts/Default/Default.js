@@ -60,7 +60,7 @@ export default function PrimarySearchAppBar(props) {
       setSearch(event.target.value);
       history.push({
         pathname: `/catalog`,
-        search: `?query=${event.target.value}`
+        search: `?name=${event.target.value}`
       })
     }
   }
