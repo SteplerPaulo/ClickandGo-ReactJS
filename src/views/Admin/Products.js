@@ -29,19 +29,19 @@ export default function Products() {
 
     const handleSearch = (event) => {
         if (event.key === 'Enter' || event.type === 'click') {
-            setUrl(baseUrl + `?query=${query}&page=1&size=${size}`);
+            setUrl(baseUrl + `?name=${query}&page=1&size=${size}`);
         }
     }
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
-        setUrl(baseUrl + `?query=${query}&page=${newPage + 1}&size=${size}`);
+        setUrl(baseUrl + `?name=${query}&page=${newPage + 1}&size=${size}`);
     };
 
     const handleChangeRowsPerPage = (event) => {
         const size = parseInt(event.target.value, 10)
         setSize(size);
-        setUrl(baseUrl + `?query=${query}&page=1&size=${size}`);
+        setUrl(baseUrl + `?name=${query}&page=1&size=${size}`);
     };
 
     useEffect(() => {
