@@ -35,9 +35,7 @@ export default function Home() {
                 <Carousel />
                 <h1>Featured Items</h1>
                 <Grid container spacing={3}>
-                    {items.map((item) => (
-                        <ItemList key={item.id} item={item} />
-                    ))}
+                     <ItemList  items={items} />
                 </Grid>
                 {(items.length && (totalPages !== page))? <LoadMore loadMore={loadMore} /> :''}
                 {(items.length && (totalPages === page))? <EndOfResult/>:''}

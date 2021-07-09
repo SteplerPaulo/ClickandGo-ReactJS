@@ -19,27 +19,37 @@ const useStyles = makeStyles({
 
 export default function Items(props) {
     const classes = useStyles();
-    const { item } = props;
+    const { items } = props;
+
+
     return (
-        <Grid item xs={6} sm={3} md={2}>
-            <Card className={classes.root} variant="outlined">
-                <CardActionArea>
-                    <CardMedia
-                        component="img"
-                        alt={item.name}
-                        image={"/images/products/thumb/large/" + item.product_images[0].img_file}
-                        title= {item.name}
-                    />
-                    <CardContent>
-                        <Typography variant="caption" color="textPrimary">
-                            {item.name}
-                        </Typography>
-                        <Typography gutterBottom component="h5" color="secondary">
-                            &#8369;{item.price}
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        </Grid>
+        <React.Fragment>
+            {
+                items.map((item) => (
+                    <Grid item xs={6} sm={3} md={2} key={item.id}>
+                        <Card className={classes.root} variant="outlined">
+                            <CardActionArea>
+                                <CardMedia
+                                    component="img"
+                                    alt={item.name}
+                                    image={"/images/products/thumb/large/" + item.product_images[0].img_file}
+                                    title={item.name}
+                                />
+                                <CardContent>
+                                    <Typography variant="caption" color="textPrimary">
+                                        {item.name}
+                                    </Typography>
+                                    <Typography gutterBottom component="h5" color="secondary">
+                                        &#8369;{item.price}
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                    </Grid>
+                ))
+            }
+
+
+        </React.Fragment>
     );
 }
