@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,15 +27,16 @@ export default function Footer(props) {
     return (
         <footer className={classes.root}>
             <Grid container >
-                <Grid item lg >
+                <Grid item lg={11} >
                     <Typography className={classes.textMuted}>
-                        Click & Go Copyright © 2020
+                        Click & Go Copyright © 2020 | Design & Develop by Paulo Biscocho
                     </Typography>
                 </Grid>
+                
                 <Grid item lg  >
-                    <Typography align="right" className={classes.textMuted}>
-                        Design & Develop by Paulo Biscocho
-                    </Typography>
+                    <Link to="/admin" align="right" >
+                       Dashboard
+                    </Link>
                 </Grid>
             </Grid>
         </footer>

@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { Router, Switch, Route, Link, useHistory } from "react-router-dom";
+import { Switch, Route, Link, useHistory } from "react-router-dom";
 //Material UI Core
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -37,7 +37,6 @@ export default function PrimarySearchAppBar(props) {
   const history = useHistory();
 
 
-
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -70,7 +69,6 @@ export default function PrimarySearchAppBar(props) {
 
   return (
     <div className={classes.root}>
-      <Router history={history}>
         <CssBaseline />
         <AppBar position="sticky" className={classes.baco}>
           <Toolbar>
@@ -181,8 +179,7 @@ export default function PrimarySearchAppBar(props) {
         <Switch >
           <Route path="/cart" component={Cart} />
           <Route path="/messages" component={Messages} />
-          <Route
-            path='/catalog'
+          <Route path='/catalog'
             render={(props) => (
               <Catalog {...props} search={search} />
             )}
@@ -190,7 +187,6 @@ export default function PrimarySearchAppBar(props) {
           <Route exact path='/' component={Home} />
         </Switch>
         <Footer />
-      </Router>
     </div>
   );
 }

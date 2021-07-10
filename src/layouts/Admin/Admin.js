@@ -1,9 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import routes from "routes/admin.routes.js";
 //Material UI Style
 import clsx from 'clsx';
-import { useTheme } from '@material-ui/core/styles';
 //Material UI Core
 import {
   CssBaseline,
@@ -20,8 +19,8 @@ import {
 } from '@material-ui/core';
 //Material UI Icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
 //Views
 import Dashboard from 'views/Admin/Dashboard.js';
 //Custom Style
@@ -29,7 +28,6 @@ import useStyles from 'layouts/Admin/Style.js'
 
 export default function MiniDrawer() {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -66,7 +64,7 @@ export default function MiniDrawer() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Router>
+      
         <Drawer
           variant="permanent"
           className={clsx(classes.drawer, {
@@ -82,9 +80,16 @@ export default function MiniDrawer() {
         >
           <div className={classes.toolbar}>
             <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+              <ChevronLeftIcon />
             </IconButton>
           </div>
+          <Divider />
+          <List>
+              <ListItem button component={Link} to="/" >
+                <ListItemIcon><HomeIcon /> </ListItemIcon>
+                <ListItemText primary="Home" />
+              </ListItem>
+          </List>
           <Divider />
           <List>
             {routes.map((prop) => (
@@ -94,6 +99,9 @@ export default function MiniDrawer() {
               </ListItem>)
             )}
           </List>
+
+
+          
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
@@ -108,7 +116,6 @@ export default function MiniDrawer() {
             ))}
           </Switch>
         </main>
-      </Router>
     </div>
   );
 }
