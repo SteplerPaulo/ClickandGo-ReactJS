@@ -9,17 +9,20 @@ import { LoadMore, NoResult, EndOfResult } from 'components/Search/Result.js'
 require('dotenv').config()
 
 export default function Home() {
+    const [loading, setLoading] = useState(false)
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
     const [items, setItems] = useState([])
 
     useEffect(() => {
+        setLoading(true)
         const response = async () => {
             const { data } = await axios(`${process.env.REACT_APP_API_URL}products?page=${page}`);
             setTotalPages(data.totalPages)
             setItems((prevItems) =>
                 [...new Set([...prevItems, ...data.rows])]
             );
+            setLoading(false)
         }
         response();
     }, [page]);
@@ -34,11 +37,11 @@ export default function Home() {
                 <Carousel />
                 <h1>Featured Items</h1>
                 <Grid container spacing={3}>
-                     <CardItems  items={items} />
+                     <CardItems items={items} />
                 </Grid>
                 {(items.length && (totalPages !== page))? <LoadMore loadMore={loadMore} /> :''}
                 {(items.length && (totalPages === page))? <EndOfResult/>:''}
-                {(!items.length)? <NoResult /> :''}
+                <NoResult loading={loading} length={items.length}/>
             </Container>
         </Fragment>
     )
