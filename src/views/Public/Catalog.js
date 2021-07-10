@@ -29,9 +29,8 @@ export default function Catalog(props) {
 
     //set url to load more items
     const loadMore = () => {
-        let nextPage = page + 1;
-        setPage(nextPage)
-        setUrl(baseUrl + `&page=${nextPage}`)
+        setPage((page)=> page+1)
+        setUrl(baseUrl + `&page=${page+1}`)
     }
 
     //request items
