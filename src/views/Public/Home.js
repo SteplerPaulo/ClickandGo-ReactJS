@@ -25,8 +25,7 @@ export default function Home() {
     }, [page]);
 
     const loadMore = () => {
-        let nextPage = page + 1;
-        setPage(nextPage)
+        setPage((page)=> page+1)
     }
 
     return (
