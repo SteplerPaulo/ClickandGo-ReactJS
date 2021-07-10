@@ -12,6 +12,7 @@ require('dotenv').config()
 export default function Catalog(props) {
     
     const search = setQuery(props.location.search)
+    const [loading, setLoading] = useState(false)
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
     const [items, setItems] = useState([])
@@ -35,12 +36,14 @@ export default function Catalog(props) {
 
     //request items
     useEffect(() => {
+        setLoading(true)
         const response = async () => {
             const { data } = await axios(url);
             setTotalPages(data.totalPages)
             setItems((prevItems) =>
                 [...new Set([...prevItems, ...data.rows])]
             );
+            setLoading(false)
         }
         response();
     }, [url])
@@ -52,9 +55,11 @@ export default function Catalog(props) {
                 <Grid container spacing={3}>
                     <CardItems  items={items} />
                 </Grid>
-                {(items.length && (totalPages !== page)) ? <LoadMore loadMore={loadMore} /> : ''}
-                {(items.length && (totalPages === page)) ? <EndOfResult /> : ''}
-                {(!items.length) ? <NoResult /> : ''}
+
+                
+                {items.length > 0 && totalPages !== page && !loading && <LoadMore loadMore={loadMore} />}
+                {items.length > 0 && totalPages === page && !loading && <EndOfResult /> }
+                <NoResult loading={loading} length={items.length}/>
             </Container>
         </Fragment>
     )

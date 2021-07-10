@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, Fragment } from 'react';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
@@ -13,18 +13,24 @@ export function LoadMore(props) {
     );
 }
 
-export function NoResult() {
+export function NoResult(props) {
+    const { length, loading } = props
     return (
-        <div>
-            We're sorry. We cannot find any matches for your search term.
-        </div>
+
+        <Fragment>
+            {length === 0 && !loading && 
+                <div>
+                    We're sorry. We cannot find any matches for your search term.
+                </div>
+            }
+        </Fragment>
     );
 }
 
-export function EndOfResult() {
+export function EndOfResult(props) {
     return (
         <Box textAlign='center' p={3}>
-             End of result
+            End of result
         </Box>
     );
 }
