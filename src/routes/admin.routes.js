@@ -8,10 +8,6 @@ import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import ViewCarouselIcon from '@material-ui/icons/ViewCarousel';
 import PeopleIcon from '@material-ui/icons/People';
 
-
-
-
-
 // core components/views for Admin layout
 import Dashboard from "views/Admin/Dashboard.js";
 import Inquiries from "views/Admin/Inquiries.js";
@@ -20,8 +16,6 @@ import Categories from "views/Admin/Categories.js";
 import Manufaturers from "views/Admin/Manufaturers.js";
 import News from "views/Admin/News.js";
 import Users from "views/Admin/Users.js";
-
-
 
 const dashboardRoutes = [
   {

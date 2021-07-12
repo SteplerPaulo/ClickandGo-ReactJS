@@ -1,12 +1,56 @@
 import { React, Fragment, useState, useEffect } from 'react'
+import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import axios from 'axios';
-import FloatingButton from 'components/FloatingButton/FloatingButton.js';
+
+
 import SearchInput from 'components/Search/Input.js';
 import Table from 'components/Pagination/Table.js'
 import { NoResult } from 'components/Search/Result.js'
 
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import { makeStyles } from '@material-ui/core/styles';
 
-export default function Products() {
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& > *': {
+            position: 'fixed',
+            width: 60,
+            height: 60,
+            bottom: '1rem',
+            right: 40,
+        },
+    },
+}));
+
+
+
+export default function ProductListings() {
+    let { path, url } = useRouteMatch();
+    const classes = useStyles();
+
+    return (
+        <Fragment>
+            < Switch >
+                <Route path={`${path}/create`}>
+                    <Create />
+                </Route>
+                <Route path={path}>
+                    <Lists />
+                </Route>
+            </Switch >
+            <Link to={`${url}/create`} className={classes.root}>
+                <Fab color="primary" aria-label="add">
+                    <AddIcon />
+                </Fab>
+            </Link>
+        </Fragment>
+    )
+}
+
+function Lists() {
     const headCells = [
         { id: 'id', numeric: false, disablePadding: false, hidden: true, label: 'ID' },
         { id: 'name', numeric: false, disablePadding: false, hidden: false, label: 'Name' },
@@ -57,6 +101,7 @@ export default function Products() {
         response();
     }, [url]);
 
+
     return (
         <Fragment>
             <SearchInput
@@ -64,8 +109,6 @@ export default function Products() {
                 handleSearch={handleSearch}
                 handleChangeSearch={handleChangeSearch}
             />
-            <FloatingButton />
-            
             {(items.length) ?
                 <Table
                     tableName="Products"
@@ -77,8 +120,25 @@ export default function Products() {
                     handleChangePage={handleChangePage}
                     rowsPerPage={size}
                     handleChangeRowsPerPage={handleChangeRowsPerPage}
-                /> :''}
-            {(!isLoading && !items.length)?<NoResult />:''}
+                /> : ''}
+            <NoResult loading={isLoading} length={items.length} />
         </Fragment>
     )
+}
+
+function Create() {
+    const { register, handleSubmit } = useForm();
+    const onSubmit = data => console.log(data);
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <input {...register("firstName")} />
+            <select {...register("gender")}>
+                <option value="female">female</option>
+                <option value="male">male</option>
+                <option value="other">other</option>
+            </select>
+            <input type="submit" />
+        </form>
+    );
 }
