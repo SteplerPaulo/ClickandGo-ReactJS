@@ -1,14 +1,15 @@
 import { React, Fragment, useState, useEffect } from 'react'
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import axios from 'axios';
-
 
 import SearchInput from 'components/Search/Input.js';
 import Table from 'components/Pagination/Table.js'
+import Sample from 'components/Forms/Sample.js'
 import { NoResult } from 'components/Search/Result.js'
 
 import Fab from '@material-ui/core/Fab';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -25,6 +26,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const useCreateStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing(2),
+        margin: 'auto',
+        maxWidth: 500,
+    },
+}));
 
 
 export default function ProductListings() {
@@ -54,7 +65,8 @@ function Lists() {
     const headCells = [
         { id: 'id', numeric: false, disablePadding: false, hidden: true, label: 'ID' },
         { id: 'name', numeric: false, disablePadding: false, hidden: false, label: 'Name' },
-        { id: 'price', numeric: true, disablePadding: false, hidden: false, label: 'Price' }
+        { id: 'price', numeric: true, disablePadding: false, hidden: false, label: 'Price' },
+        { id: 'category', numeric: false, disablePadding: false, hidden: false, label: 'Category' }
     ];
     const [isLoading, setIsLoading] = useState(false);
     const [items, setItems] = useState([]);
@@ -127,18 +139,13 @@ function Lists() {
 }
 
 function Create() {
-    const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
 
+    const classes = useCreateStyles();
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <input {...register("firstName")} />
-            <select {...register("gender")}>
-                <option value="female">female</option>
-                <option value="male">male</option>
-                <option value="other">other</option>
-            </select>
-            <input type="submit" />
-        </form>
+        <Paper className={classes.paper}>
+            <Grid item lg={12} sm container spacing={2}>
+                <Sample />
+            </Grid>
+        </Paper>
     );
 }
