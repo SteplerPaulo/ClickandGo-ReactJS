@@ -21,7 +21,6 @@ export default function CardItems(props) {
     const classes = useStyles();
     const { items } = props;
 
-
     return (
         <React.Fragment>
             {items.map((item) => (
@@ -31,7 +30,7 @@ export default function CardItems(props) {
                             <CardMedia
                                 component="img"
                                 alt={item.name}
-                                image={"/images/products/thumb/large/" + item.product_images[0].img_file}
+                                image={"/images/products/thumb/large/" + item.product_images[0]?.img_file}
                                 title={item.name}
                             />
                             <CardContent>
