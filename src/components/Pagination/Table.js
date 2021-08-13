@@ -14,15 +14,26 @@ import EnhancedTableHead from 'components/Pagination/TableHead.js'
 
 import { useStyles } from 'components/Pagination/Style.js';
 
+
+import { useForm } from "react-hook-form";
+//import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 export default function EnhancedTable(props) {
   const classes = useStyles();
   const { headCells, rows, page, totalItems, handleChangePage, rowsPerPage, handleChangeRowsPerPage } = props
+
+  
+  const { register, formState: { errors } } = useForm();
+  //const onSubmit = data => console.log(data);
+
+
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <TableContainer>
-          <Table>
+          <Table size='small'>
             <EnhancedTableHead headCells={headCells} classes={classes} />
             <TableBody>
               {rows.map((row, index) => {
@@ -34,19 +45,45 @@ export default function EnhancedTable(props) {
                         align={(col.numeric ? 'right' : 'left')}
                         className={col.hidden ? classes.hide : ''}
                       >
-                        {row[col.id]}
+                        {row[col.id]?.name || row[col.id]}
                       </TableCell>
                     ))}
 
                     <TableCell align="right">
                       <IconButton>
-                        <EditIcon color="secondary"  />
+                        <EditIcon color="secondary" />
                       </IconButton>
                     </TableCell>
                   </TableRow>
                 )
               })
               }
+              <TableRow  >
+                {headCells.map((col, key) => (
+                  <TableCell component="th" scope="row"
+                    className={col.hidden ? classes.hide : ''}
+                    align={(col.numeric ? 'right' : 'left')}
+                  >
+                    <TextField
+                      id="name"
+                      label={col.id}
+                      margin="dense"
+                      variant="outlined"
+                      autoFocus
+                      fullWidth
+                      error={errors.name}
+                      helperText={errors.name && <span>This field is required</span>}
+                      {...register("name", { required: true })}
+                    />
+                  </TableCell>
+                ))}
+
+                <TableCell align="right">
+                  <IconButton>
+                    <EditIcon color="secondary" />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
