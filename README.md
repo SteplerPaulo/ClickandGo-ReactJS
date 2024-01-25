@@ -47,6 +47,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 
-For any inquiries or feedback, please contact us at [email@example.com](mailto:email@example.com).
+For any inquiries or feedback, please contact us at [paulobiscocho@gmail.com](mailto:paulobiscocho@gmail.com).
 
 Happy grocery shopping with ClickAndGo! 🛒🌟
