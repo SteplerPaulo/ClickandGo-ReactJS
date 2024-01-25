@@ -21,8 +21,8 @@ ClickAndGo is an ecommerce application built with React.js that simplifies the g
 
 To run the ClickAndGo website locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/clickandgo.git`
-2. Navigate to the project directory: `cd clickandgo`
+1. Clone the repository: `git clone https://github.com/SteplerPaulo/ClickandGo-ReactJS.git`
+2. Navigate to the project directory: `cd ClickandGo-ReactJS`
 3. Install dependencies: `npm install`
 4. Start the development server: `npm start`
 5. Open your browser and visit `http://localhost:3000` to view the website.
